@@ -75,5 +75,10 @@ flatpak_apps=(
   com.github.tchx84.Flatseal
 )
 
+for app in "${flatpak_apps[@]}"; do
+  echo "Instalando $app..."
+  flatpak install -y --noninteractive flathub "$app"
+done
+
 echo "Configuração concluída com sucesso!"
 
