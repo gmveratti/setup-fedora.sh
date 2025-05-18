@@ -58,8 +58,8 @@ flatpak_apps=(
   com.visualstudio.code
   io.dbeaver.DBeaverCommunity
   com.getpostman.Postman
-  org.libreoffice.LibreOffice
   io.github.flattool.Warehouse
+  org.onlyoffice.desktopeditors
   net.cozic.joplin_desktop
   com.anydesk.Anydesk
   com.discordapp.Discord
@@ -70,6 +70,8 @@ flatpak_apps=(
   org.chromium.Chromium
   org.torproject.torbrowser-launcher
   org.gnome.Papers
+  io.neovim.nvim
+  com.heroicgameslauncher.hgl
   io.github.ilya_zlobintsev.LACT
   dev.qwery.AddWater
   com.github.tchx84.Flatseal
