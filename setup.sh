@@ -48,6 +48,17 @@ sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/do
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl enable --now docker
 
+# Instalando Pacotes RPM
+echo "Instalando Pacotes RPM"
+#VSCODE#
+echo "Instalando VSCODE"
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc \n"|sudo tee /etc/yum.repos.d/vscode.repo
+sudo dnf install code -y
+#NEOVIM#
+echo "Instalando Neovim"
+sudo dnf install neovim
+
 # Instalando Aplicativos Flatpak
 echo "Instalando aplicativos Flatpak..."
 flatpak_apps=(
@@ -55,24 +66,17 @@ flatpak_apps=(
   org.qbittorrent.qBittorrent
   com.google.Chrome
   com.mattjakeman.ExtensionManager
-  com.visualstudio.code
   io.dbeaver.DBeaverCommunity
   com.getpostman.Postman
   io.github.flattool.Warehouse
   org.onlyoffice.desktopeditors
   net.cozic.joplin_desktop
   com.anydesk.Anydesk
-  com.discordapp.Discord
-  com.valvesoftware.Steam
   org.gimp.GIMP
   me.iepure.devtoolbox
   org.localsend.localsend_app
   org.chromium.Chromium
-  org.torproject.torbrowser-launcher
   org.gnome.Papers
-  io.neovim.nvim
-  com.heroicgameslauncher.hgl
-  io.github.ilya_zlobintsev.LACT
   dev.qwery.AddWater
   com.github.tchx84.Flatseal
 )
