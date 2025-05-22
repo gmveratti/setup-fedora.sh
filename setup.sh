@@ -79,6 +79,9 @@ flatpak_apps=(
   org.gnome.Papers
   dev.qwery.AddWater
   com.github.tchx84.Flatseal
+  org.duckstation.DuckStation
+  org.DolphinEmu.dolphin-emu
+  net.pcsx2.PCSX2
 )
 
 for app in "${flatpak_apps[@]}"; do
