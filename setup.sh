@@ -57,7 +57,7 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 sudo dnf install code -y
 #NEOVIM#
 echo "Instalando Neovim"
-sudo dnf install neovim
+sudo dnf install neovim -y
 
 # Instalando Aplicativos Flatpak
 echo "Instalando aplicativos Flatpak..."
