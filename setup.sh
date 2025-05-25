@@ -53,11 +53,28 @@ echo "Instalando Pacotes RPM"
 #VSCODE#
 echo "Instalando VSCODE"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc \n"|sudo tee /etc/yum.repos.d/vscode.repo
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc \n" | sudo tee /etc/yum.repos.d/vscode.repo
 sudo dnf install code -y
 #NEOVIM#
 echo "Instalando Neovim"
 sudo dnf install neovim -y
+
+#Instalando UV-Python
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+#Configurando o LazyVim
+echo "Configurando o LazyVim"
+# required
+rm ~/.config/nvim{,.bak}
+
+# optional but recommended
+rm ~/.local/share/nvim{,.bak}
+rm ~/.local/state/nvim{,.bak}
+rm ~/.cache/nvim{,.bak}
+
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+
+rm -rf ~/.config/nvim/.git
 
 # Instalando Aplicativos Flatpak
 echo "Instalando aplicativos Flatpak..."
@@ -90,4 +107,3 @@ for app in "${flatpak_apps[@]}"; do
 done
 
 echo "Configuração concluída com sucesso!"
-
