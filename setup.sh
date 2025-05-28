@@ -65,12 +65,12 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 #Configurando o LazyVim
 echo "Configurando o LazyVim"
 # required
-rm ~/.config/nvim{,.bak}
+rm -r ~/.config/nvim
 
 # optional but recommended
-rm ~/.local/share/nvim{,.bak}
-rm ~/.local/state/nvim{,.bak}
-rm ~/.cache/nvim{,.bak}
+rm -r ~/.local/share/nvim
+rm -r ~/.local/state/nvim
+rm -r ~/.cache/nvim
 
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 
