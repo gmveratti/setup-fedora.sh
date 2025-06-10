@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 echo -e "\n🚀 Iniciando configuração do sistema...\n"
 
@@ -71,15 +70,23 @@ sudo dnf install -y gnome-tweaks
 # INSTALANDO DOCKER
 # --------------------------
 echo "🐳 Instalando Docker..."
-sudo dnf remove -y docker docker-client docker-client-latest docker-common docker-latest \
-  docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
 
-sudo dnf install -y dnf-plugins-core
-sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo dnf -y install dnf-plugins-core
+sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo systemctl enable --now docker
-sudo systemctl status docker --no-pager
 
 # --------------------------
 # INSTALANDO VSCODE
@@ -112,15 +119,6 @@ bash uv_install.sh
 rm uv_install.sh
 
 # --------------------------
-# CONFIGURANDO LAZYVIM
-# --------------------------
-echo "⚙️ Configurando LazyVim..."
-rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
-
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-rm -rf ~/.config/nvim/.git
-
-# --------------------------
 # INSTALANDO APLICATIVOS FLATPAK
 # --------------------------
 echo "📦 Instalando aplicativos Flatpak..."
@@ -142,9 +140,6 @@ flatpak_apps=(
   org.gnome.Papers
   dev.qwery.AddWater
   com.github.tchx84.Flatseal
-  org.duckstation.DuckStation
-  org.DolphinEmu.dolphin-emu
-  net.pcsx2.PCSX2
 )
 
 for app in "${flatpak_apps[@]}"; do
