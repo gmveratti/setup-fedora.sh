@@ -33,7 +33,7 @@ sudo sysctl -p
 # --------------------------
 echo "🗑️ Removendo softwares pré-instalados..."
 sudo dnf remove -y gnome-tour yelp gnome-abrt gnome-maps gnome-connections gnome-contacts evince \
-  libreoffice-writer libreoffice-calc libreoffice-impress mediawriter
+  libreoffice-writer libreoffice-calc libreoffice-impress mediawriter gnome-boxes simple-scan
 
 # --------------------------
 # ATUALIZANDO SISTEMA
