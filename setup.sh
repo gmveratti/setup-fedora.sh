@@ -67,6 +67,31 @@ echo "🎨 Instalando GNOME Tweaks..."
 sudo dnf install -y gnome-tweaks
 
 # --------------------------
+# HABILITANDO SSH
+# --------------------------
+echo "🔒 Habilitando SSH Server (OpenSSH)..."
+sudo dnf install -y openssh-server
+sudo systemctl enable sshd
+sudo systemctl start sshd
+sudo firewall-cmd --add-service=ssh --permanent
+
+# --------------------------
+# INSTALANDO OH MY BASH
+# --------------------------
+echo "🐚 Instalando Oh My Bash..."
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
+# --------------------------
+# INSTALANDO VIRTUALIZAÇÃO (KVM/QEMU)
+# --------------------------
+echo "🖥️ Instalando pacotes de virtualização..."
+sudo dnf install -y @virtualization
+sudo dnf group install -y --with-optional virtualization
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+sudo usermod -aG libvirt $(whoami)
+
+# --------------------------
 # INSTALANDO DOCKER
 # --------------------------
 echo "🐳 Instalando Docker..."
@@ -82,7 +107,7 @@ sudo dnf remove docker \
                   docker-engine
 
 sudo dnf -y install dnf-plugins-core
-sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
@@ -105,17 +130,37 @@ EOL
 sudo dnf install -y code
 
 # --------------------------
-# INSTALANDO NEOVIM
+# INSTALANDO FERRAMENTAS DE DESENVOLVIMENTO
 # --------------------------
-echo "🧠 Instalando Neovim..."
+echo "🛠️ Instalando ferramentas de desenvolvimento..."
+
+echo "➡️ Instalando Rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# A linha abaixo precisa ser executada manualmente ou no próximo login do shell
+# source $HOME/.cargo/env
+
+echo "➡️ Instalando Development Tools..."
+sudo dnf install -y @development-tools
+
+echo "➡️ Instalando Java 21 JDK..."
+sudo dnf install -y java-21-openjdk-devel
+
+# --------------------------
+# INSTALANDO NEOVIM E LAZYVIM
+# --------------------------
+echo "✍️ Instalando Neovim e configurando LazyVim..."
 sudo dnf install -y neovim
+
+echo "➡️ Baixando configuração do LazyVim..."
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
 
 # --------------------------
 # INSTALANDO UV (PYTHON)
 # --------------------------
 echo "🐍 Instalando UV para Python..."
 curl -LsSf -o uv_install.sh https://astral.sh/uv/install.sh
-bash uv_install.sh
+sh uv_install.sh
 rm uv_install.sh
 
 # --------------------------
@@ -147,6 +192,11 @@ for app in "${flatpak_apps[@]}"; do
   flatpak install -y --noninteractive flathub "$app"
 done
 
+# --------------------------
+# FINALIZAÇÃO
+# --------------------------
+echo -e "\n✅ Configuração concluída com sucesso!\n"
+echo "ℹ️ OBS: Para que as alterações em grupos de usuários (libvirt) e shell (Oh My Bash, Rust) tenham efeito, reinicie o sistema."
 # --------------------------
 # FINALIZAÇÃO
 # --------------------------
